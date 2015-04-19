@@ -21,10 +21,12 @@ public class DateUtils {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(year, month - 1, day);
+
         return calendar.getTime();
     }
 
@@ -39,7 +41,8 @@ public class DateUtils {
     }
 
     /**
-     * Creates a new Date from the given year, month. For day a default of 1 is used.
+     * Creates a new Date from the given year, month. For day a default of 1 is
+     * used.
      */
     public static Date createDate(int year, int month) {
         return createDate(year, month, 1);
@@ -81,7 +84,8 @@ public class DateUtils {
     }
 
     /**
-     * Returns a date representing the first day of the current month at 00:00 (i.e. no day and time components).
+     * Returns a date representing the first day of the current month at 00:00
+     * (i.e. no day and time components).
      */
     public static Date getCurrentMonthDate() {
         Calendar now = Calendar.getInstance();

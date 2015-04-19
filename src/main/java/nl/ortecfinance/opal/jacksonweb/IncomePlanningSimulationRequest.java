@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Java representation of a simulation request.
  */
-@JsonSerialize(using = YearMonthDateSerializer.class)
+//@JsonSerialize(using = YearMonthDateSerializer.class)
 public class IncomePlanningSimulationRequest {
 
     @JsonProperty(required = true)
@@ -24,9 +24,9 @@ public class IncomePlanningSimulationRequest {
 
     @JsonProperty(required = true)
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM", timezone = "CET")
     @JsonDeserialize(using = YearMonthDateDeserializer.class)
-    @JsonSerialize(using = YearMonthDateSerializer.class)
+    //  @JsonSerialize(using = YearMonthDateSerializer.class)
     @Future
     private Date startPeriod;
 
@@ -49,14 +49,28 @@ public class IncomePlanningSimulationRequest {
     @NotNull
     private boolean taxCalculationIncluded;
 
-    @JsonSerialize(using = YearMonthDateSerializer.class)
+    //  @JsonSerialize(using = YearMonthDateSerializer.class)
+    // @JsonDeserialize(using = YearMonthDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     @JsonProperty("geboortedatum")
     public Date dob;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM", timezone = "CET")
+    //  @JsonProperty("processingDate")
+    public Date processingDate;
 
     @NotNull
     private int age;
 
     private String name = "naam";
+
+    public Date getProcessingDate() {
+        return processingDate;
+    }
+
+    public void setProcessingDate(Date processingDate) {
+        this.processingDate = processingDate;
+    }
 
     public String getName() {
         return name;
@@ -91,7 +105,8 @@ public class IncomePlanningSimulationRequest {
     }
 
     /**
-     * Retrieves the month and year (day is set to 1) of the date of the start period
+     * Retrieves the month and year (day is set to 1) of the date of the start
+     * period
      *
      * @return an Date object representing the start date
      */
