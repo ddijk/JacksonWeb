@@ -3,7 +3,6 @@ package nl.ortecfinance.opal.jacksonweb;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
@@ -14,6 +13,7 @@ import javax.validation.constraints.NotNull;
  * Java representation of a simulation request.
  */
 //@JsonSerialize(using = YearMonthDateSerializer.class)
+//@XmlRootElement
 public class IncomePlanningSimulationRequest {
 
     @JsonProperty(required = true)
@@ -62,7 +62,7 @@ public class IncomePlanningSimulationRequest {
     @NotNull
     private int age;
 
-    private String name = "naam";
+    private String name;
 
     public Date getProcessingDate() {
         return processingDate;
@@ -157,6 +157,7 @@ public class IncomePlanningSimulationRequest {
         this.failureTestEnabled = failureTestEnabled;
     }
 
+    @JsonProperty("geboortedatum")
     public Date getDob() {
         return dob;
     }

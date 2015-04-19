@@ -1,5 +1,8 @@
 package nl.ortecfinance.opal.jacksonweb.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,15 +23,16 @@ public class RestService {
         req.setDob(new Date());
 
         System.out.println("*******************");
-        // System.out.println("age is "+ req.get);
-//        ObjectMapper m = new ObjectMapper();
-//        StringWriter sr = new StringWriter();
-//        try {
-//            m.writeValue(sr, req);
-//
-//        } catch (IOException ex) {
-//            System.err.println("Failed. " + ex);
-//        }
+        System.out.println("age is " + req.getAge());
+        ObjectMapper m = new ObjectMapper();
+        StringWriter sr = new StringWriter();
+        try {
+            m.writeValue(sr, req);
+            System.out.println("IncomePlanningSimulationRequest:" + sr.toString());
+
+        } catch (IOException ex) {
+            System.err.println("Failed. " + ex);
+        }
 
         return Response.ok(req).build();
         //   return Response.ok(sr.toString()).build();

@@ -6,19 +6,28 @@
             30
         </session-timeout>
     </session-config>
-    <!--
+    
     <servlet>
         <servlet-name>Jersey REST Service</servlet-name>
+        <!--
         <servlet-class>weblogic.jaxrs.server.portable.servlet.ServletContainer</servlet-class>
+        -->
+        <servlet-class>
+        com.sun.jersey.spi.container.servlet.ServletContainer
+    </servlet-class>
         <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>nl.ortecfinance.opal.jacksonweb.rest;com.fasterxml.jackson.jaxrs.json</param-value>
-        </init-param>
+		<param-name>com.sun.jersey.config.property.packages</param-name>
+		<param-value>nl.ortecfinance.opal.jacksonweb.rest;com.fasterxml.jackson.jaxrs</param-value>
+	</init-param>
+        <init-param>
+               <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+              <param-value>true</param-value>
+          </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/res/*</url-pattern>
     </servlet-mapping>
-    -->
+   
 </web-app>
