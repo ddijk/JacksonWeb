@@ -41,11 +41,8 @@ package nl.ortecfinance.opal.jacksonweb.rest;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
-//import org.codehaus.jackson.map.ObjectMapper;
-//import org.codehaus.jackson.map.SerializationConfig.Feature;
 
 /**
  *
@@ -87,6 +84,7 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
         ObjectMapper result = new ObjectMapper();
         //   result.configure(Feature.INDENT_OUTPUT, true);
         result.enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
+
         result.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
         //    result.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 

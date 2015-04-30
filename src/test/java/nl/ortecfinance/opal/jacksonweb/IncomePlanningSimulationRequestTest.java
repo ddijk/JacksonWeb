@@ -5,16 +5,15 @@
  */
 package nl.ortecfinance.opal.jacksonweb;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Date;
 import org.junit.Assert;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
@@ -29,6 +28,7 @@ public class IncomePlanningSimulationRequestTest {
         IncomePlanningSimulationRequest req = new IncomePlanningSimulationRequest();
         req.setStartPeriod(new Date());
         ObjectMapper m = new ObjectMapper();
+
         m.writeValue(System.out, req);
     }
 
@@ -72,7 +72,7 @@ public class IncomePlanningSimulationRequestTest {
         Assert.assertEquals(0, req.getAge());
     }
 
-    // 
+    //
     @Test(expected = JsonProcessingException.class)
     public void testNullForMissingPrimitive() throws IOException {
         String json = "{\"age\":null}";
@@ -111,4 +111,41 @@ public class IncomePlanningSimulationRequestTest {
 
     }
 
+    @Test
+    public void testDoubleSerializer() throws IOException {
+        IncomePlanningSimulationRequest req = new IncomePlanningSimulationRequest();
+
+        req.setMyPrimitiveDouble(3.4);
+        req.setMyObjectDouble(Double.parseDouble("3.9"));
+        final double[] doubleArray = new double[]{2.1, 2, 2};
+
+        req.setMyPrimitiveDoubleArray(doubleArray);
+
+        double[][] my2DimArray = new double[2][2];
+        my2DimArray[0] = new double[]{2.333333, 2.2555555};
+        my2DimArray[1] = new double[]{8.1, 8.3};
+
+        System.out.println("doubleArray:" + doubleArray);
+        System.out.println("my2DimArray:" + my2DimArray);
+
+        req.setMyPrimitiveDouble2DimArray(my2DimArray);
+
+        Double[] myObjectDoubleArray = {Double.parseDouble("4.3"), Double.parseDouble("4.5")};
+        req.setMyObjectDoubleArray(myObjectDoubleArray);
+
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(Double.class, new MyDoubleSerializer());
+        module.addSerializer(double.class, new MyDoubleSerializer());
+        module.addSerializer(Double[].class, new MyDoubleArraySerializer());
+        module.addSerializer(double[].class, new MyPrimitiveDoubleArraySerializer());
+        module.addSerializer(double[][].class, new MyPrimitive2DimDoubleArraySerializer());
+
+        ObjectMapper m = new ObjectMapper();
+        m.registerModule(module);
+
+        StringWriter sw = new StringWriter();
+        m.writeValue(sw, req);
+        String json = sw.toString();
+        System.out.println("testSerializeDate:" + json);
+    }
 }

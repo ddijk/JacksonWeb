@@ -64,6 +64,52 @@ public class IncomePlanningSimulationRequest {
 
     private String name;
 
+    private Double myObjectDouble;
+    private double myPrimitiveDouble;
+    private double[] myPrimitiveDoubleArray;
+    private double[][] myPrimitiveDouble2DimArray;
+    private Double[] myObjectDoubleArray;
+
+    public Double[] getMyObjectDoubleArray() {
+        return myObjectDoubleArray;
+    }
+
+    public void setMyObjectDoubleArray(Double[] myObjectDoubleArray) {
+        this.myObjectDoubleArray = myObjectDoubleArray;
+    }
+
+    public double[] getMyPrimitiveDoubleArray() {
+        return myPrimitiveDoubleArray;
+    }
+
+    public void setMyPrimitiveDoubleArray(double[] myPrimitiveDoubleArray) {
+        this.myPrimitiveDoubleArray = myPrimitiveDoubleArray;
+    }
+
+    public double[][] getMyPrimitiveDouble2DimArray() {
+        return myPrimitiveDouble2DimArray;
+    }
+
+    public void setMyPrimitiveDouble2DimArray(double[][] myPrimitiveDouble2DimArray) {
+        this.myPrimitiveDouble2DimArray = myPrimitiveDouble2DimArray;
+    }
+
+    public Double getMyObjectDouble() {
+        return myObjectDouble;
+    }
+
+    public void setMyObjectDouble(Double myObjectDouble) {
+        this.myObjectDouble = myObjectDouble;
+    }
+
+    public double getMyPrimitiveDouble() {
+        return myPrimitiveDouble;
+    }
+
+    public void setMyPrimitiveDouble(double myPrimitiveDouble) {
+        this.myPrimitiveDouble = myPrimitiveDouble;
+    }
+
     public Date getProcessingDate() {
         return processingDate;
     }
@@ -105,8 +151,7 @@ public class IncomePlanningSimulationRequest {
     }
 
     /**
-     * Retrieves the month and year (day is set to 1) of the date of the start
-     * period
+     * Retrieves the month and year (day is set to 1) of the date of the start period
      *
      * @return an Date object representing the start date
      */
