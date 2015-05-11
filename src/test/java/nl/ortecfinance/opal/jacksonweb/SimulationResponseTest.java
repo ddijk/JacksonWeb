@@ -35,6 +35,7 @@ public class SimulationResponseTest {
         module.addSerializer(Double[].class, new MyDoubleArraySerializer());
         om.registerModule(module);
         om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        om.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
         om.writeValue(sr, resp);
 
