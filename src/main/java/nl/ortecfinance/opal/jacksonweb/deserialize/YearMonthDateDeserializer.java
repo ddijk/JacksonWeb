@@ -1,4 +1,4 @@
-package nl.ortecfinance.opal.jacksonweb;
+package nl.ortecfinance.opal.jacksonweb.deserialize;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
 import java.util.Date;
+import nl.ortecfinance.opal.jacksonweb.DateUtils;
 
 /**
  * Deserializes a year-month to date

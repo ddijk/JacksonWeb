@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Date;
+import nl.ortecfinance.opal.jacksonweb.serialize.MyDoubleArraySerializer;
+import nl.ortecfinance.opal.jacksonweb.serialize.MyDoubleSerializer;
+import nl.ortecfinance.opal.jacksonweb.serialize.MyPrimitive2DimDoubleArraySerializer;
+import nl.ortecfinance.opal.jacksonweb.serialize.MyPrimitiveDoubleArraySerializer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -138,6 +142,7 @@ public class IncomePlanningSimulationRequestTest {
         module.addSerializer(double.class, new MyDoubleSerializer());
         module.addSerializer(Double[].class, new MyDoubleArraySerializer());
         module.addSerializer(double[].class, new MyPrimitiveDoubleArraySerializer());
+        module.addSerializer(double[][].class, new MyPrimitive2DimDoubleArraySerializer());
         module.addSerializer(double[][].class, new MyPrimitive2DimDoubleArraySerializer());
 
         ObjectMapper m = new ObjectMapper();

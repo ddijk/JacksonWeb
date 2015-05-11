@@ -1,6 +1,8 @@
 package nl.ortecfinance.opal.jacksonweb;
 
+import nl.ortecfinance.opal.jacksonweb.deserialize.YearMonthDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.Date;
@@ -16,10 +18,13 @@ import javax.validation.constraints.NotNull;
 //@XmlRootElement
 public class IncomePlanningSimulationRequest {
 
-    @JsonProperty(required = true)
+    private int bullProp;
+
+    //   @JsonProperty(required = true)
     @NotNull
     @Min(1)
     @Max(540)
+    @JsonIgnore
     private int horizon;
 
     @JsonProperty(required = true)
@@ -222,6 +227,15 @@ public class IncomePlanningSimulationRequest {
 
     public void setTaxCalculationIncluded(boolean taxCalculationIncluded) {
         this.taxCalculationIncluded = taxCalculationIncluded;
+    }
+
+    @JsonIgnore
+    public int getBullProp() {
+        return bullProp;
+    }
+
+    public void setBullProp(int bullProp) {
+        this.bullProp = bullProp;
     }
 
 }

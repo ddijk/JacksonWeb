@@ -1,4 +1,4 @@
-package nl.ortecfinance.opal.jacksonweb;
+package nl.ortecfinance.opal.jacksonweb.serialize;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
