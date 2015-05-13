@@ -1,21 +1,27 @@
 package nl.ortecfinance.opal.jacksonweb;
 
-import nl.ortecfinance.opal.jacksonweb.deserialize.YearMonthDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
+import java.util.List;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import nl.ortecfinance.opal.jacksonweb.deserialize.YearMonthDateDeserializer;
+import nl.ortecfinance.opal.jacksonweb.serialize.ListOfDoubleArraySerializer;
+import nl.ortecfinance.opal.jacksonweb.serialize.YearMonthDateSerializer;
 
 /**
  * Java representation of a simulation request.
  */
 //@JsonSerialize(using = YearMonthDateSerializer.class)
 //@XmlRootElement
+//@ValidateObject(type = CashflowDto.class)
+//@ValidateObject(type = IncomePlanningSimulationRequest.class)
 public class IncomePlanningSimulationRequest {
 
     private int bullProp;
@@ -24,8 +30,8 @@ public class IncomePlanningSimulationRequest {
     @NotNull
     @Min(1)
     @Max(540)
-    @JsonIgnore
-    private int horizon;
+    // @JsonIgnore
+    private Integer horizon;
 
     @JsonProperty(required = true)
     @NotNull
@@ -54,11 +60,15 @@ public class IncomePlanningSimulationRequest {
     @NotNull
     private boolean taxCalculationIncluded;
 
-    //  @JsonSerialize(using = YearMonthDateSerializer.class)
+    @JsonSerialize(using = YearMonthDateSerializer.class)
     // @JsonDeserialize(using = YearMonthDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     @JsonProperty("geboortedatum")
     public Date dob;
+
+    @NotNull
+    @JsonSerialize(using = ListOfDoubleArraySerializer.class)
+    private List<double[]> values;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM", timezone = "CET")
     //  @JsonProperty("processingDate")
@@ -72,7 +82,7 @@ public class IncomePlanningSimulationRequest {
     private Double myObjectDouble;
     private double myPrimitiveDouble;
     private double[] myPrimitiveDoubleArray;
-    private double[][] myPrimitiveDouble2DimArray;
+    private double[][] myPrimitiveDouble2DimArray = new double[][]{{4, 5}, {3, 5}};
     private Double[] myObjectDoubleArray;
 
     public Double[] getMyObjectDoubleArray() {
@@ -142,16 +152,11 @@ public class IncomePlanningSimulationRequest {
     public IncomePlanningSimulationRequest() {
     }
 
-    /**
-     * Retrieves the horizon of the client
-     *
-     * @return an int representing the horizon
-     */
-    public int getHorizon() {
+    public Integer getHorizon() {
         return horizon;
     }
 
-    public void setHorizon(int horizon) {
+    public void setHorizon(Integer horizon) {
         this.horizon = horizon;
     }
 
@@ -236,6 +241,14 @@ public class IncomePlanningSimulationRequest {
 
     public void setBullProp(int bullProp) {
         this.bullProp = bullProp;
+    }
+
+    public List<double[]> getValues() {
+        return values;
+    }
+
+    public void setValues(List<double[]> values) {
+        this.values = values;
     }
 
 }
