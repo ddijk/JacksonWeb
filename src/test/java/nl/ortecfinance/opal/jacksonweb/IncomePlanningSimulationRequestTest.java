@@ -5,6 +5,8 @@
  */
 package nl.ortecfinance.opal.jacksonweb;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -152,5 +154,27 @@ public class IncomePlanningSimulationRequestTest {
         m.writeValue(sw, req);
         String json = sw.toString();
         System.out.println("testSerializeDate:" + json);
+    }
+
+    @Test(expected = JsonParseException.class)
+    public void testDuplicates() throws IOException {
+        String json = "{\"horizon\":0,\"horizon\":0,\"startScenario\":0,\"endScenario\":0,\"failureTestEnabled\":false,\"taxCalculationIncluded\":false,\"age\":0,\"name\":\"naam\"}";
+        ObjectMapper m = new ObjectMapper();
+        m.enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
+        m.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        m.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION);
+        IncomePlanningSimulationRequest req = m.readValue(new StringReader(json), IncomePlanningSimulationRequest.class);
+
+        Assert.fail("Duplicate properties should be accepted.");
+    }
+
+    @Test
+    public void bull() throws IOException {
+        String json = "{\"horizon\":0,\"horizon\":0,\"startScenario\":0,\"endScenario\":0,\"failureTestEnabled\":false,\"taxCalculationIncluded\":false,\"age\":0,\"name\":\"naam\"}";
+        ObjectMapper m = new ObjectMapper();
+        m.enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES);
+        m.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        m.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION);
+        IncomePlanningSimulationRequest req = m.readValue(new StringReader(json), IncomePlanningSimulationRequest.class);
     }
 }
